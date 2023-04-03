@@ -1,0 +1,31 @@
+package com.example.demo.Controller;
+
+import com.example.demo.model.Cliente;
+import com.example.demo.repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
+
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.List;
+
+@RestController
+@RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:3000/")
+public class ClienteController {
+    @Autowired
+    ClienteRepository repository;
+    @GetMapping(value = "listar")
+    public List<Cliente> listar(){
+        return repository.findAll();
+    }
+
+    @PostMapping(value="cadastrar")
+    public ResponseEntity<Cliente> cadatrar(@RequestBody Cliente cliente){
+        repository.save(cliente);
+        return ResponseEntity.ok().body(cliente);
+    }
+}
