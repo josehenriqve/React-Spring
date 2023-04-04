@@ -28,4 +28,17 @@ public class ClienteController {
         repository.save(cliente);
         return ResponseEntity.ok().body(cliente);
     }
+    @DeleteMapping(value="deletar/{id}")
+    public ResponseEntity<Cliente> deletar(@PathVariable Long id) {
+        repository.deleteById(id);
+        return ResponseEntity.ok().body(null);
+    }
+    @PutMapping(value = "modificar")
+    public ResponseEntity<Cliente> modificar(@RequestBody Cliente cliente){
+        if (repository.existsById(cliente.getId())) {
+            repository.save(cliente);
+            return ResponseEntity.ok().body(cliente);
+        }
+        return ResponseEntity.ok().body(null);
+    }
 }
